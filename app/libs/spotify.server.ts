@@ -14,11 +14,16 @@ export class SpotifyLibrary {
 
   private formatTracks(tracks: { [key: string]: unknown }[]) {
     return tracks.map((t) => {
-      if (typeof t === 'object' && 'track' in t && t.track && isTrack(t.track)) {
+      if (
+        typeof t === "object" &&
+        "track" in t &&
+        t.track &&
+        isTrack(t.track)
+      ) {
         return {
-            name: t.track.name,
-            artists: t.track.artists,
-            album: snakeToCamelCase(t.track.album),
+          name: t.track.name,
+          artists: t.track.artists,
+          album: snakeToCamelCase(t.track.album),
         } as Track;
       }
     });

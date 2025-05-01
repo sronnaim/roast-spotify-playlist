@@ -38,6 +38,7 @@ jobs:
     name: 🛠 Build
     runs-on: ubuntu-22.04
     needs: [typecheck]
+    environment: sronnaim.my.id
 
     steps:
       - name: ⬇️ Checkout repo

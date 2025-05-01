@@ -19,12 +19,12 @@ export async function action({ request }: Route.ActionArgs) {
   };
 
   try {
-    let playlistId = ''
-    const playlistInput= await PlaylistIdInput.parseAsync(idInput);
+    let playlistId = "";
+    const playlistInput = await PlaylistIdInput.parseAsync(idInput);
     if (z.string().url().safeParse(playlistInput).success) {
-      const pathParts = new URL(playlistInput).pathname.split('/')
-      playlistId = pathParts[2]
-    } else playlistId = playlistInput
+      const pathParts = new URL(playlistInput).pathname.split("/");
+      playlistId = pathParts[2];
+    } else playlistId = playlistInput;
 
     const language = await LanguageInput.safeParseAsync(langInput);
 
