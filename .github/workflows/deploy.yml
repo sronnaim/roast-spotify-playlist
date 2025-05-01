@@ -63,6 +63,7 @@ jobs:
     name: 🚀 Deploy to ECS
     runs-on: ubuntu-22.04
     needs: [build]
+    environment: sronnaim.my.id
 
     steps:
       - name: 📥 Install SSH client
@@ -74,7 +75,6 @@ jobs:
           ssh-private-key: ${{ secrets.ECS_PRIVATE_KEY }}
 
       - name: 🚀 Deploy to ECS
-        # REDIS_HOST is the IP of Redis image on the Docker network the app and Redis are running on
         run: |
           ssh -o StrictHostKeyChecking=no ${{ vars.ECS_USER }}@${{ vars.ECS_HOST }} "
             sudo docker pull ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.CONTAINER_NAME }}:latest
