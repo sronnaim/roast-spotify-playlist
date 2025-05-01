@@ -9,6 +9,17 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { Header } from "./welcome/header";
+
+export const meta: Route.MetaFunction = ({ error }) => {
+  return error
+    ? [
+        { title: "Whoopsie | Roast Spotify Playlist" },
+        { name: "Error Page" },
+        { content: "If you're seeing this, please go back home" },
+      ]
+    : [];
+};
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -20,6 +31,20 @@ export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+  },
+  // Material Symbols entire variable fonts
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200",
+  },
+  // Noto Color Emoji
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap",
+  },
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap",
   },
 ];
 
@@ -62,14 +87,21 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
+    <>
+      <main className="h-[100dvh]">
+        <Header />
+        <section className="max-w-[795px] gap-20 overflow-auto m-auto h-full flex items-center justify-center">
+          <h1>{message}</h1>
+          <div>
+            <p>{details}</p>
+            {stack && (
+              <pre className="w-full p-4 overflow-x-auto">
+                <code>{stack}</code>
+              </pre>
+            )}
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
