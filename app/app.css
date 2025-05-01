@@ -9,6 +9,22 @@
   --font-symbols: "Material Symbols Outlined";
   --font-noto: "Noto Color Emoji";
   --spacing: 0.0625rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --primary: var(--color-blue-500);
+
+  --color-fillstertiary: var(--fillstertiary);
+  --color-fillssecondary: var(--fillssecondary);
+  --color-labelssecondary: var(--labelssecondary);
+  --color-labelsprimary: var(--labelsprimary);
+  --color-labelstertiary: var(--labelstertiary);
+
+  --color-separatoropaque: var(--separatoropaque);
 
   --text-title2: calc(var(--spacing) * 22);
   --text-title2--line-height: calc(var(--spacing) * 26);
@@ -24,38 +40,15 @@
   --text-footnote--letter-spacing: 0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  --color-primary: var(--primary);
-
-  --color-fillstertiary: var(--fillstertiary);
-  --color-fillssecondary: var(--fillssecondary);
-  --color-labelssecondary: var(--labelssecondary);
-  --color-labelsprimary: var(--labelsprimary);
-  --color-labelstertiary: var(--labelstertiary);
-
-  --color-separatoropaque: var(--separatoropaque);
-}
-
 :root {
   --background: rgb(255, 255, 255);
   --foreground: rgb(0, 0, 0);
-  --primary: var(--color-blue-500);
   --fillstertiary: rgba(120, 120, 128, 12%);
   --fillssecondary: rgba(120, 120, 128, 16%);
   --labelsprimary: rgba(0, 0, 0, 100%);
   --labelssecondary: rgba(60, 60, 67, 60%);
   --labelstertiary: rgba(60, 60, 67, 30%);
   --separatoropaque: rgba(198, 198, 200, 100%);
-
-  --subheadline: var(--spacing * 15);
-  --subheadline--line-height: var(--spacing * 20);
-  --subheadline--letter-spacing: var(--spacing * -0.0144);
-  --body: var(--spacing * 17);
-  --body--line-height: var(--spacing * 22);
-  --body--letter-spacing: var(--spacing * -0.02689);
 }
 
 .dark {

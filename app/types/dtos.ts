@@ -14,7 +14,7 @@ export const PlaylistIdInput = z
 
       return false;
     },
-    { message: "Invalid input" },
+    { message: "Invalid playlist ID or URL" },
   );
 
 export const LanguageInput = z.enum(["EN", "ID"], {

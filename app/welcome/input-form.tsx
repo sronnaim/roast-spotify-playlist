@@ -70,10 +70,8 @@ export function InputForm({
         prev.push(actionData.data.roast);
         await history.set(prev);
         // Spread operator to trigger array update
-        setLatestRequest({
-          ...actionData.data.roast,
-          status: "ok",
-        });
+        setRoasts([...prev]);
+        setLatestRequest(null);
       } else if (latestRequest && actionData && actionData.status === "error") {
         setLatestRequest({
           ...latestRequest,
