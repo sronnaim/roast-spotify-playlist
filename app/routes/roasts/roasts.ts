@@ -2,7 +2,7 @@ import { ZodError } from "zod";
 import type { Route } from "./+types/roasts.server";
 import { LanguageInput, PlaylistIdInput, type ActionData } from "~/types/dtos";
 import { data } from "react-router";
-import roastsServer from "~/libs/roasts.server";
+import roasts from "~/libs/roasts.server";
 import { AxiosError } from "axios";
 import type { Roast } from "~/types/roasts";
 import { z } from "zod";
@@ -28,7 +28,7 @@ export async function action({ request }: Route.ActionArgs) {
 
     const language = await LanguageInput.safeParseAsync(langInput);
 
-    const roast = await roastsServer.create(
+    const roast = await roasts.create(
       playlistId,
       language.error ? "EN" : language.data,
     );
