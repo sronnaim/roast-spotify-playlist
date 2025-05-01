@@ -1,5 +1,5 @@
 import { ZodError } from "zod";
-import type { Route } from "./+types/roasts.server";
+import type { Route } from "./+types/roasts";
 import { LanguageInput, PlaylistIdInput, type ActionData } from "~/types/dtos";
 import { data } from "react-router";
 import roasts from "~/libs/roasts.server";
