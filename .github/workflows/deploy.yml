@@ -90,7 +90,6 @@ jobs:
               -e GEMINI_API_KEY=\"${{ secrets.GEMINI_API_KEY }}\" \\
               -e REDIS_HOST=\"${{ vars.REDIS_HOST }}\" \\
               -e REDIS_PORT=\"${{ vars.REDIS_PORT }}\" \\
-
               ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.CONTAINER_NAME }}:latest
             sudo docker image prune -f
           "
