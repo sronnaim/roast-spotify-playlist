@@ -10,6 +10,8 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { Header } from "./welcome/header";
+import { Theme, ThemeProvider } from "remix-themes";
+import { themeSessionResolver } from "./sessions.server";
 
 export const meta: Route.MetaFunction = ({ error }) => {
   return error
@@ -37,32 +39,45 @@ export const links: Route.LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200",
   },
-  // Noto Color Emoji
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap",
-  },
   {
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap",
   },
 ];
 
+export async function loader({ request }: Route.LoaderArgs) {
+  const { getTheme } = await themeSessionResolver(request);
+
+  return {
+    theme: getTheme(),
+  };
+}
+
+function AppProviders({ children }: { children: React.ReactNode }) {
+  return (
+    <ThemeProvider themeAction="/theme" specifiedTheme={Theme.LIGHT}>
+      {children}
+    </ThemeProvider>
+  );
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
+    <AppProviders>
+      <html lang="en">
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <Meta />
+          <Links />
+        </head>
+        <body>
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+        </body>
+      </html>
+    </AppProviders>
   );
 }
 
@@ -70,7 +85,9 @@ export default function App() {
   return <Outlet />;
 }
 
-export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+export function ErrorBoundary({ error, loaderData }: Route.ErrorBoundaryProps) {
+  const isDark = loaderData?.theme === Theme.DARK;
+
   let message = "Oops!";
   let details = "An unexpected error occurred.";
   let stack: string | undefined;
@@ -88,7 +105,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
   return (
     <>
-      <main className="h-[100dvh]">
+      <main className={`h-[100dvh] ${isDark && "dark"}`}>
         <Header />
         <section className="max-w-[795px] gap-20 overflow-auto m-auto h-full flex items-center justify-center">
           <h1>{message}</h1>

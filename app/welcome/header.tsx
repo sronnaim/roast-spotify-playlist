@@ -1,4 +1,6 @@
-import { Link } from "react-aria-components";
+import { useState } from "react";
+import { Link, Switch } from "react-aria-components";
+import { Theme, useTheme } from "remix-themes";
 
 export function Header() {
   return (
@@ -12,10 +14,11 @@ export function Header() {
         </a>
       </h1>
       <nav className="absolute left-0 top-15 w-full px-16 py-15">
-        <ul className="flex m-auto px-16 justify-end items-center max-w-[795px] h-min">
+        <ul className="flex m-auto px-16 justify-between items-center max-w-[795px] h-min">
+          <ModeSwitch />
           <li>
             <Link
-              href="https://github.com/sronnaim/roast-playlist"
+              href="https://github.com/sronnaim/roast-spotify-playlist"
               className="font-symbols text-[22px] text-primary"
               aria-label="GitHub"
             >
@@ -25,5 +28,36 @@ export function Header() {
         </ul>
       </nav>
     </header>
+  );
+}
+
+function ModeSwitch() {
+  const [theme, setTheme] = useTheme();
+  const isDark = theme === Theme.DARK;
+  const [selected, setSelected] = useState<boolean>(isDark);
+  const handleSwitch = () => {
+    setSelected(!isDark);
+    setTimeout(() => {
+      setTheme(isDark ? Theme.LIGHT : Theme.DARK);
+    }, 250);
+  };
+
+  return (
+    <Switch
+      className="group flex gap-2 items-center"
+      isSelected={selected}
+      onChange={handleSwitch}
+    >
+      <div className="w-51 h-31 rounded-full p-2 bg-fillssecondary group-data-selected:bg-green-500 flex">
+        <span className="block h-full transition-all duration-300 ease-in-out w-0 group-data-selected:w-full" />
+        <span
+          className="h-full aspect-square rounded-full bg-white block"
+          style={{
+            boxShadow:
+              "0px 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 3px 8px rgba(0, 0, 0, 0.15), 0px 3px 1px rgba(0, 0, 0, 0.06)",
+          }}
+        />
+      </div>
+    </Switch>
   );
 }

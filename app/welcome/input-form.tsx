@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import {
   useCallback,
   useEffect,
@@ -16,6 +17,7 @@ import {
   TextField,
 } from "react-aria-components";
 import { useFetcher } from "react-router";
+import { Theme, useTheme } from "remix-themes";
 import { Button } from "~/components/button";
 import history from "~/libs/history";
 import type { ActionData, LatestRequest } from "~/types/dtos";
@@ -30,6 +32,9 @@ export function InputForm({
   latestRequest: LatestRequest | null;
   setLatestRequest: Dispatch<SetStateAction<LatestRequest | null>>;
 }) {
+  const [theme] = useTheme();
+  const isDark = theme === Theme.DARK;
+
   const [lang, setLang] = useState<"ID" | "EN">("ID");
   const [playlistIdInput, setPlaylistIdInput] = useState<string>("");
   const fetcher = useFetcher();
@@ -116,7 +121,10 @@ export function InputForm({
           {lang}
         </Button>
         <Popover
-          className="bg-background text-foreground rounded-lg dark transition-transform ease-out data-entering:scale-y-0 data-exiting:scale-y-0 origin-bottom duration-200"
+          className={clsx(
+            `bg-background text-foreground rounded-lg transition-transform ease-out data-entering:scale-y-0 data-exiting:scale-y-0 origin-bottom duration-200`,
+            isDark && "dark",
+          )}
           offset={0}
           crossOffset={-16}
         >

@@ -8,6 +8,7 @@ export const meta: Route.MetaFunction = () => {
     { name: "Home page", content: "Welcome to Roast Spotify Playlist!" },
   ];
 };
+
 export async function clientLoader() {
   const roastsList = await history.get();
   return {
